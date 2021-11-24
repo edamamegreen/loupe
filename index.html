@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<style type="text/css">
+			.outer {
+				padding: 5em;
+			}
+			img {
+				position: fixed;
+			}
+			.loupe {
+				background-image: url("https://picsum.photos/seed/tugboat/400/600");
+				display: block;
+				position: relative;
+				left: 0;
+				top: 0;
+				background-position: -10px -20px;
+				width: 60px;
+				height: 60px;
+				border: 2px solid grey;
+				z-index: 2;
+				border-radius: 50%;
+				/*will-change: left, top;*/
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Loupe Demo</h2>
+		<p>This is a recreation of a loupe feature I saw in the <a href="https://asana.com/guide/help/premium/custom-fields#gl-examples">Asana documentation pages.</a></p>
+		<p>Instructions: Hover mouse over the image.</p>
+		<div class="outer">
+			<img src="https://picsum.photos/seed/tugboat/200/300"/>
+			<div class="loupe"></div>
+		</div>
+	</body>
+	<script>
+		const images = document.getElementsByTagName('img');
+		const image = images[0];
+		const loupe = document.getElementsByClassName('loupe')[0];
+		const show = (e) => {
+			loupe.setAttribute('style', 'display: block;');
+			image.onmousemove = examine;
+		};
+		const hide = (e) => {
+			loupe.setAttribute('style', 'display: none');
+			image.onmousemove = null;
+		}
+		const examine = (e) => {
+			console.log(e.offsetX, e.offsetY);
+			loupe.setAttribute('style', `background-position: -${e.offsetX} -${e.offsetY}`);
+		};
+		image.onmouseenter = show;
+		image.onmouseleave = hide;
+	</script>
+</html>
